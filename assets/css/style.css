@@ -9,7 +9,7 @@
    height: 650px;
    background-repeat:no-repeat;
    background-position: center; 
-   opacity: 0.8;
+   opacity: 0.8 !important;
 }
 
 h1 {
