@@ -11,14 +11,25 @@
 console.log("testing");
 $(document).ready(function(){
 
-// var queryurl = "http://www.recipepuppy.com/api/?";
-// var ingredient = "onions, garlic";
-// var qItem = "omelet";
-// var page = 3;
+var queryurl = "http://www.recipepuppy.com/api/?";
+var ingredient = "";
+var qItem = "";
 
-var queryRecipe = "http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3";
 
-$.ajax({
+//var queryRecipe = queryurl + "i=" + ingredient + "&q=" + qItem + "&p=3";
+
+//"http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3";
+
+//get ingredients list from user input box 
+$("button").click(function(){
+	ingredient = $("#ingredient-input").val();
+	console.log(ingredient);
+
+	//build query url using recipepuppy api
+	var queryRecipe = queryurl + "i=" + ingredient + "&p=3";
+
+	//make ajax call to search for recipes with ingredients stored in ingredient variable
+	$.ajax({
 	url: queryRecipe,
 	method: "GET",
 	dataType: 'jsonp',
@@ -28,6 +39,10 @@ $.ajax({
 	}
 
 	});
+
+});
+
+
 
 // $("button").click(function(){
 // 	//$("#recipedata").load("http://www.bigoven.com/recipe/eggplant-omelet-with-coriander-and-caraway/143831 .ingredientbox");
