@@ -1,17 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
+
 <head>
-	<title>Recipe2Go</title>
 
-	<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Recipe2Go</title>
+
+  <!-- We link our html to the Bootstrap CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps:700" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+
 </head>
+
 <body>
-<div class="recipeinfo">
-	<!-- <form action="http://www.recipepuppy.com/" method="get" style="font-size:10px;"><b style="font-size:14px;">Recipe Search by Ingredients:</b><input type="text" name="i" id="i" value="Enter ingredients separated by commas" size=31 style="color:gray;font-size:11px;" onfocus="if(this.style.color=='gray'){this.style.color='black';this.value='';}" onblur="if(this.value==''){this.style.color='gray';this.value='Enter ingredients separated by commas';}" /><input type="submit" value="Search" style="font-size:11px;" /><br/>Powered by <a href="http://www.recipepuppy.com" style="font-size:10px;">Recipe Puppy</a></form></div> -->
+
+
+  <!-- Container Div -->
+<!--   <div class="container-fluid">
+ -->
+<!-- Navbar -->
+<!-- <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Me</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">WHO</a></li>
+        <li><a href="#">WHAT</a></li>
+        <li><a href="#">WHERE</a></li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+
+    <!-- Jumbotron element -->
+    <div class="jumbotron">
+<br><br>
+
+      <!-- centered text -->
+      <h1 class="text-center"><strong>Recipe2Go</strong></h1>
+      <h2 class="text-center">- turn your favorite recipes into grocery list in a sec -</h2>
+<br><br>
+      <div class="row">
+        <div class="col-lg-3"> </div>
+
+        <div class="col-lg-6">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for...">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-primary"><b>Go!</b></button>
+        </span>
+      </div><!-- /input-group -->
+        </div>
+      </div>
+    </div>
+
+      <!-- ================================== -->
 
 
 
-<script type="text/javascript" src="assets/javascript/recipe.js"></script>
+<!-- Second Container (Grid) -->
+<div class="container-fluid bg-3 text-center">    
+  <h3 class="margin">How to Recipe2Go?</h3><br>
+  <div class="row">
+    <div class="col-sm-4">
+      <img src="assets/images/image1.jpg" class="img-responsive margin" style="width:400px" alt="Image">
+      <p>Step 1: Use the search bar to find a recipe of any cusine! Simply type in any keywords or ingredients. </p>
+    </div>
+    <div class="col-sm-4"> 
+      <img src="assets/images/image2.jpg" class="img-responsive margin" style="width:400px" alt="Image">
+      <p>Step 2: Select desired recipe from the results. Add or take out any unwanted ingredients to make the recipe just the way you like!</p>
+    </div>
+    <div class="col-sm-4"> 
+      <img src="assets/images/image3.jpg" class="img-responsive margin" style="width:400px" alt="Image">
+      <p>Step 3: Import the list of ingredients of the modified recipe to a grocery list. Here, you are all ready to go! We can even add those to the shopping cart for you from Walmart!</p>
+    </div>
+  </div>
+</div>
+
+<!-- Third Container -->
+<div class="container-fluid bg-2 text-center">
+  <h3 class="margin">Recipe Results</h3>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+
+</div>
+
+
+<!-- Footer -->
+<footer class="bg-4 text-center">
+  <p>Project 1| LeeAnna Misterek | Michelle Ryan | Sherry Bao | 2017 Coding Boot Camp </p> 
+</footer>
+
 </body>
+
+  <script src="assets/javascript/recipe.js"></script>
+
 </html>
+
