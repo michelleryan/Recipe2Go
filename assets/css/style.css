@@ -9,7 +9,7 @@
    height: 650px;
    background-repeat:no-repeat;
    background-position: center; 
-   opacity: 0.8 !important;
+   opacity: 0.7 !important;
 }
 
 h1 {
@@ -28,6 +28,14 @@ h2{
 
 }
 
+.form-control{
+  width:100% !important;
+  margin-right:100px;
+}
+
+button{
+  margin-left: 0px;
+}
 /*============================*/
  body {
       font: 20px Montserrat, sans-serif;
