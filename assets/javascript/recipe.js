@@ -14,7 +14,7 @@ $(document).ready(function(){
 var queryurl = "http://www.recipepuppy.com/api/?";
 var ingredient = "";
 var recipeType = "";
-
+var alpha = new RegExp(/([A-Za-z,]+\W)/);  //pattern to ensure only valid words are entered
 
 
 //var queryRecipe = queryurl + "i=" + ingredient + "&q=" + qItem + "&p=3";
@@ -26,64 +26,81 @@ $("button").click(function(){
 	ingredient = $("#ingredient-input").val().trim();
 	recipeType = $("#type-input").val().trim();
 	console.log("ingredients: " + ingredient);
-		console.log("recipe type: " + recipeType);
-	
-	// variable for the results from the ajax call
-	var results = [];	
+	console.log("recipe type: " + recipeType);
 
 	//check that ingredient-input or type-input have some value before you build the queryRecipe url
 	if (ingredient.length>0 || recipeType.length>0) {
 
+		
+
 		if(ingredient.length>0 & recipeType.length>0) {
-			//build query url using recipepuppy api
+			//both search windows have input
+
+			//validation of input, should be only characters and ingredients must be seperated by a ','
+			var goodType = alpha.test(recipeType);
+			var goodIngr = alpha.test(ingredient);
+			console.log(goodType + ", " + goodIngr);
+
+			if (goodType & goodIngr) {
+
 			var queryRecipe = queryurl + "i=" + ingredient + "&q=" + recipeType +"&p=3";
-
-			//make ajax call to search for recipes with ingredients stored in ingredient variable
-			$.ajax({
-			url: queryRecipe,
-			method: "GET",
-			dataType: 'jsonp',
-			success: function(response) {
-				
-				// display 6 recipes inside of thumbnails
-				// Create a thumbnail for each of the first six results
-				console.log(response);
-				
-
-
-
-				}
-
-			});
+			console.log(queryRecipe);
+			recipeCall(queryRecipe);
+			
+			}
+			else{
+				console.log("invalid input");
+			}
 
 		}
-		if (ingredient.length>0 & recipeType==0) {
+		if (ingredient.length>0 & recipeType.length==0) {
 
-			//build query url using recipepuppy api
+			//only ingredient search has input
+			var goodIngr = alpha.test(ingredient);
+
+			if (goodIngr) {
 			var queryRecipe = queryurl + "i=" + ingredient +"&p=3";
-
-			//make ajax call to search for recipes with ingredients stored in ingredient variable
-			$.ajax({
-			url: queryRecipe,
-			method: "GET",
-			dataType: 'jsonp',
-			success: function(response) {
-				console.log(response);
-				}
-
-			});
+			recipeCall(queryRecipe);
+			}
+			else{
+				console.log("invalid input");
+			}
+			
 		}
 		if (recipeType.length>0 & ingredient.length==0) {
-			//build query url using recipepuppy api
-			//var queryRecipe = queryurl + "i=" + ingredient +"&p=3";
-			var queryRecipe = queryurl + "q=" + recipeType + "&p=3";
+			
+			//only recipe type search has input
+			var goodType = alpha.test(recipeType);
 
-			//make ajax call to search for recipes with ingredients stored in ingredient variable
+			if (goodType) {
+			var queryRecipe = queryurl + "q=" + recipeType + "&p=3";
+			recipeCall(queryRecipe);
+			}
+			else{
+				console.log("invalid input");
+			}
+			
+		}
+
+
+		
+	}
+	else{
+
+		alert("You must enter some ingredients or a recipe type you want to search for!");
+	}
+
+	//Determine if the user entered ingredients and a recipe type or just one of the search options
+	//build the queryRecipe url accordingly
+
+	function recipeCall (queryRecipe) {
+		//make ajax call to search for recipes with ingredients stored in ingredient variable
 			$.ajax({
 			url: queryRecipe,
 			method: "GET",
 			dataType: 'jsonp',
 			success: function(response) {
+
 
 				for (var i = 0; i < 6; i++) {
 
@@ -104,24 +121,14 @@ $("button").click(function(){
 
 				}
 
+
+
 				}
 
 
 			});
 
-
-
 		}
-		
-
-		
-
-	}
-	else{
-		alert("You must enter some ingredients or a recipe type you want to search for!");
-	}
-
-
 	
 });
 
