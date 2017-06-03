@@ -25,69 +25,65 @@ $("button").click(function(){
 	ingredient = $("#ingredient-input").val().trim();
 	recipeType = $("#type-input").val().trim();
 	console.log("ingredients: " + ingredient);
-		console.log("recipe type: " + recipeType);
+	console.log("recipe type: " + recipeType);
 	
 
 
 	//check that ingredient-input or type-input have some value before you build the queryRecipe url
 	if (ingredient.length>0 || recipeType.length>0) {
 
+		//validation of input, should be only characters and ingredients must be seperated by a ','
+
 		if(ingredient.length>0 & recipeType.length>0) {
-			//build query url using recipepuppy api
+			//both search windows have input
 			var queryRecipe = queryurl + "i=" + ingredient + "&q=" + recipeType +"&p=3";
-
-			//make ajax call to search for recipes with ingredients stored in ingredient variable
-			$.ajax({
-			url: queryRecipe,
-			method: "GET",
-			dataType: 'jsonp',
-			success: function(response) {
-				console.log(response);
-				}
-
-			});
+			console.log(queryRecipe);
+			recipeCall(queryRecipe);
+			
 
 		}
-		if (ingredient.length>0 & recipeType==0) {
+		if (ingredient.length>0 & recipeType.length==0) {
 
-			//build query url using recipepuppy api
+			//only ingredient search has input
 			var queryRecipe = queryurl + "i=" + ingredient +"&p=3";
-
-			//make ajax call to search for recipes with ingredients stored in ingredient variable
-			$.ajax({
-			url: queryRecipe,
-			method: "GET",
-			dataType: 'jsonp',
-			success: function(response) {
-				console.log(response);
-				}
-
-			});
+			recipeCall(queryRecipe);
+			
 		}
 		if (recipeType.length>0 & ingredient.length==0) {
-			//build query url using recipepuppy api
-			//var queryRecipe = queryurl + "i=" + ingredient +"&p=3";
+			
+			//only recipe type search has input
 			var queryRecipe = queryurl + "q=" + recipeType + "&p=3";
+			recipeCall(queryRecipe);
+			
+		}
 
-			//make ajax call to search for recipes with ingredients stored in ingredient variable
+
+		
+	}
+	else{
+
+		alert("You must enter some ingredients or a recipe type you want to search for!");
+	}
+
+	//Determine if the user entered ingredients and a recipe type or just one of the search options
+	//build the queryRecipe url accordingly
+
+	function recipeCall (queryRecipe) {
+		//make ajax call to search for recipes with ingredients stored in ingredient variable
 			$.ajax({
 			url: queryRecipe,
 			method: "GET",
 			dataType: 'jsonp',
 			success: function(response) {
 				console.log(response);
+				
 				}
 
 			});
 
-		}
 		
-
 		
-
-	}
-	else{
-		alert("You must enter some ingredients or a recipe type you want to search for!");
+		
 	}
 
 	
