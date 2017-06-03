@@ -14,7 +14,8 @@ $(document).ready(function(){
 var queryurl = "http://www.recipepuppy.com/api/?";
 var ingredient = "";
 var recipeType = "";
-var alpha = new RegExp(/([A-Za-z,]+\W)/);  //pattern to ensure only valid words are entered
+var alpha = new RegExp(/^[A-Za-z,\s]+$/);  //pattern to ensure only valid words are entered
+
 
 
 //var queryRecipe = queryurl + "i=" + ingredient + "&q=" + qItem + "&p=3";
@@ -39,7 +40,7 @@ $("button").click(function(){
 			//validation of input, should be only characters and ingredients must be seperated by a ','
 			var goodType = alpha.test(recipeType);
 			var goodIngr = alpha.test(ingredient);
-			console.log(goodType + ", " + goodIngr);
+			console.log("type: " + goodType + ", Ingredient: " + goodIngr);
 
 			if (goodType & goodIngr) {
 
