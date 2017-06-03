@@ -8,12 +8,13 @@
 // p : page
 // format=xml : if you want xml instead of json 
 
-console.log("testing");
+
 $(document).ready(function(){
 
 var queryurl = "http://www.recipepuppy.com/api/?";
 var ingredient = "";
 var recipeType = "";
+
 
 
 //var queryRecipe = queryurl + "i=" + ingredient + "&q=" + qItem + "&p=3";
@@ -27,7 +28,8 @@ $("button").click(function(){
 	console.log("ingredients: " + ingredient);
 		console.log("recipe type: " + recipeType);
 	
-
+	// variable for the results from the ajax call
+	var results = [];	
 
 	//check that ingredient-input or type-input have some value before you build the queryRecipe url
 	if (ingredient.length>0 || recipeType.length>0) {
@@ -42,7 +44,14 @@ $("button").click(function(){
 			method: "GET",
 			dataType: 'jsonp',
 			success: function(response) {
+				
+				// display 6 recipes inside of thumbnails
+				// Create a thumbnail for each of the first six results
 				console.log(response);
+				
+
+
+
 				}
 
 			});
@@ -75,10 +84,32 @@ $("button").click(function(){
 			method: "GET",
 			dataType: 'jsonp',
 			success: function(response) {
-				console.log(response);
+
+				for (var i = 0; i < 6; i++) {
+
+				// Create the thumbnail html
+				var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail" id="thumb' + i +'"><img id="image"' + i + ' src=' +
+				response.results[i]["thumbnail"] + '>';
+
+				var caption = $("<div>");
+				caption.attr("class", "caption");
+				caption.attr("id", "caption" + i)
+
+				// Add the thumbnail label 
+				$("#firstRow").append(html);
+				$("#thumb" + i).append(caption);
+				
+				// Add the title to the caption html
+				$("#caption" + i).html("<h3>" + response.results[i]["title"] + "</h3>");
+
 				}
 
+				}
+
+
 			});
+
+
 
 		}
 		
@@ -89,6 +120,7 @@ $("button").click(function(){
 	else{
 		alert("You must enter some ingredients or a recipe type you want to search for!");
 	}
+
 
 	
 });
