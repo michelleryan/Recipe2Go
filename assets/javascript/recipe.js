@@ -14,7 +14,7 @@ $(document).ready(function(){
 var queryurl = "http://www.recipepuppy.com/api/?";
 var ingredient = "";
 var recipeType = "";
-
+var alpha = new RegExp(/([A-Za-z,]+\W)/);  //pattern to ensure only valid words are entered
 
 //var queryRecipe = queryurl + "i=" + ingredient + "&q=" + qItem + "&p=3";
 
@@ -32,28 +32,56 @@ $("button").click(function(){
 	//check that ingredient-input or type-input have some value before you build the queryRecipe url
 	if (ingredient.length>0 || recipeType.length>0) {
 
-		//validation of input, should be only characters and ingredients must be seperated by a ','
+		
 
 		if(ingredient.length>0 & recipeType.length>0) {
 			//both search windows have input
+
+			//validation of input, should be only characters and ingredients must be seperated by a ','
+			
+
+			var goodType = alpha.test(recipeType);
+			var goodIngr = alpha.test(ingredient);
+			console.log(goodType + ", " + goodIngr);
+
+			if (goodType & goodIngr) {
+
 			var queryRecipe = queryurl + "i=" + ingredient + "&q=" + recipeType +"&p=3";
 			console.log(queryRecipe);
 			recipeCall(queryRecipe);
 			
+			}
+			else{
+				console.log("invalid input");
+			}
 
 		}
 		if (ingredient.length>0 & recipeType.length==0) {
 
 			//only ingredient search has input
+			var goodIngr = alpha.test(ingredient);
+
+			if (goodIngr) {
 			var queryRecipe = queryurl + "i=" + ingredient +"&p=3";
 			recipeCall(queryRecipe);
+			}
+			else{
+				console.log("invalid input");
+			}
 			
 		}
 		if (recipeType.length>0 & ingredient.length==0) {
 			
 			//only recipe type search has input
+			var goodType = alpha.test(recipeType);
+
+			if (goodType) {
 			var queryRecipe = queryurl + "q=" + recipeType + "&p=3";
 			recipeCall(queryRecipe);
+			}
+			else{
+				console.log("invalid input");
+			}
 			
 		}
 
