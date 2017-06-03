@@ -16,11 +16,36 @@ var ingredient = "";
 var recipeType = "";
 var alpha = new RegExp(/^[A-Za-z,\s]+$/);  //pattern to ensure only valid words are entered
 
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBePZ0fp3Y2wYdCDj3qEvXU6MNG12-asOo",
+    authDomain: "recipe2go-c3963.firebaseapp.com",
+    databaseURL: "https://recipe2go-c3963.firebaseio.com",
+    projectId: "recipe2go-c3963",
+    storageBucket: "recipe2go-c3963.appspot.com",
+    messagingSenderId: "701815658245"
+  };
+  firebase.initializeApp(config);
+  var database = firebase.database();
+
+//initalize our database elements
+// 	var name = "";
+// 	var ingredients = "";
+// 	var prices = "";
+// 	var total = "";
+
+// //set the db
+// 	database.ref().set({
+// 		name: name,
+// 		ingredients: ingredients,
+// 		prices: prices,
+// 		total: total
+
+// 	});
 
 
-//var queryRecipe = queryurl + "i=" + ingredient + "&q=" + qItem + "&p=3";
 
-//"http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3";
+
 
 //get ingredients list from user input box 
 $("button").click(function(){
