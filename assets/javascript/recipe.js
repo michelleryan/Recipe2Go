@@ -16,6 +16,8 @@ var ingredient = "";
 var recipeType = "";
 var alpha = new RegExp(/^[A-Za-z,\s]+$/);  //pattern to ensure only valid words are entered
 
+var recipeResults = "";
+
 // Initialize Firebase
   var config = {
     apiKey: "AIzaSyBePZ0fp3Y2wYdCDj3qEvXU6MNG12-asOo",
@@ -103,7 +105,7 @@ $("button").click(function(){
 			recipeCall(queryRecipe);
 			}
 			else{
-				console.log("invalid input");
+					console.log("invalid input");
 			}
 			
 		}
@@ -127,6 +129,7 @@ $("button").click(function(){
 			dataType: 'jsonp',
 			success: function(response) {
 
+				recipeResults = response.results;
 
 				for (var i = 0; i < 6; i++) {
 
@@ -157,6 +160,75 @@ $("button").click(function(){
 		}
 	
 });
+
+//********************* Click event for first result ******************************************//
+
+
+$(".row").delegate("#thumb0", "click", function() {
+
+	var j = 0;
+	
+	// Create a list
+	var formHTML = '<form action="/action_page.php" method="get">	</form>';
+
+  	$("#ingredientList").append(formHTML);
+	
+	var ingredients = recipeResults[0].ingredients.split(',');
+
+	for (var i = 0; i < ingredients.length; i++) {
+
+
+		var checkbox = document.createElement('input');
+		checkbox.type = "checkbox";
+		checkbox.name = "ingredient";
+		checkbox.value = "test";
+			
+		checkbox.id = "ingredient" + j + i;
+
+		var label = document.createElement('label')
+		label.htmlFor = "ingredient"  + j + i;
+		label.appendChild(document.createTextNode(ingredients[i]));
+
+
+		
+		ingredients[i] = ingredients[i].replace(/\s/g, '_');
+		
+
+		var request = $.ajax({
+			url: "http://api.walmartlabs.com/v1/search?apiKey=jbwqfe65aws3axhy5qqxbx2r&query=" + ingredients[i]
+	,
+			method: "GET",
+			dataType: 'jsonp',
+			success: function(data) {
+
+				if(data.totalResults != 0) {
+
+					var a = document.createElement('a');
+					var linkText = document.createTextNode(data.query);
+					a.appendChild(linkText);
+					a.title = "ingredient";
+					a.target = "_blank";
+					a.href = data.items[0].addToCartUrl;
+					document.body.appendChild(a);
+
+				}
+
+				else {
+					// do something about there not being any data left
+				}
+
+			}
+			});	 // end of ajax function
+
+		$("form").append(checkbox);
+		$("form").append(label);
+		$("form").append("<br>");
+
+	}
+})   // end of click event
+
+//******************** WALMART AJAX CALL ****************************************************//
+
 
 
 
