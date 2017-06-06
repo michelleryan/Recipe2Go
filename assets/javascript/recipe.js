@@ -176,8 +176,10 @@ function setClickItems(number) {
 	for (var i = 0; i < number; i++) {
 		
 		$(".row").delegate("#thumb" + i, "click", function() {
+			CreateHeader(i);
 			CreateChecklist(i);	
 			HidePageItems();
+			
 
 		})   // end of click events
 	} // end of for loop
@@ -212,7 +214,7 @@ function CreateChecklist(j) {
 
 		ingredients[i] = ingredients[i].replace(/\s/g, '_');
 
-		var request = $.ajax({
+		$.ajax({
 			url: "http://api.walmartlabs.com/v1/search?apiKey=jbwqfe65aws3axhy5qqxbx2r&query=" + ingredients[i]
 	,
 			method: "GET",
@@ -237,6 +239,8 @@ function CreateChecklist(j) {
 					// do something about there not being any data left
 				}
 
+				BuildPanel(data);
+
 			}
 			});	 // end of ajax function
 
@@ -244,21 +248,36 @@ function CreateChecklist(j) {
 		$("#list").append(label);
 		$("#list").append("<br>");
 
-
 	}
 }
 
 function HidePageItems() {
 	$("#howto").hide();
 	$(".jumbotron").hide();
+	$("#firstRow").empty();
 }
 
 function setInitial() {
 	$("#results").hide();
 }
 
+function CreateHeader(i) {
+	$("#ingredientList").append("<h3>" + recipeResults[i].title + "</h3>");
+	console.log(recipeResults[i].title);
+}
 
+function BuildPanel(data) {
+// 	console.log(data);
 
+// 	<div class="container">
+//   <h2>Panel Heading</h2>
+//   <div class="panel panel-default">
+//     <div class="panel-heading">Panel Heading</div>
+//     <div class="panel-body">Panel Content</div>
+//   </div>
+// </div>
+	// Top of the table is 
+}
 
 // $("button").click(function(){
 // 	//$("#recipedata").load("http://www.bigoven.com/recipe/eggplant-omelet-with-coriander-and-caraway/143831 .ingredientbox");
