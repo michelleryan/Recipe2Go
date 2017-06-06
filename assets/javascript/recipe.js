@@ -262,7 +262,8 @@ function setInitial() {
 }
 
 function CreateHeader(i) {
-	$("#ingredientList").append("<h3>" + recipeResults[i].title + "</h3>");
+	$("#ingredientList").append("<a href=" + recipeResults[i].href +"><h3>" + recipeResults[i].title + "</h3></a>");
+	$("a").attr("target", "_blank");
 	console.log(recipeResults[i].title);
 }
 
