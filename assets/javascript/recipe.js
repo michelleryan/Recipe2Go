@@ -177,10 +177,9 @@ function setClickItems(number) {
 		
 		$(".row").delegate("#thumb" + i, "click", function() {
 			CreateHeader(i);
-			CreateChecklist(i);	
+			BuildTable();
+			CallWalmart(i);
 			HidePageItems();
-			
-
 		})   // end of click events
 	} // end of for loop
 } // end of function
@@ -188,34 +187,94 @@ function setClickItems(number) {
 
 //******************** METHODS ****************************************************//
 
-function CreateChecklist(j) {
+// function CreateChecklist(j) {
 	
-	// Create a list
-	var formHTML = '<form id="list" action="/action_page.php" method="get">	</form>';
+// 	// Create a list
+// 	var formHTML = '<form id="list" action="/action_page.php" method="get">	</form>';
 
-  	$("#ingredientList").append(formHTML);
+//   	$("#ingredientList").append(formHTML);
 	
-	var ingredients = recipeResults[j].ingredients.split(',');
+// 	var ingredients = recipeResults[j].ingredients.split(',');
 
-	for (var i = 0; i < ingredients.length; i++) {
+// 	for (var i = 0; i < ingredients.length; i++) {
 
-		var checkbox = document.createElement('input');
-		checkbox.type = "checkbox";
-		checkbox.name = "ingredient";
-		checkbox.value = "test";
+// 		var checkbox = document.createElement('input');
+// 		checkbox.type = "checkbox";
+// 		checkbox.name = "ingredient";
+// 		checkbox.value = "test";
 
 
 			
-		checkbox.id = "ingredient" + j + i;
+// 		checkbox.id = "ingredient" + j + i;
 
-		var label = document.createElement('label')
-		label.htmlFor = "ingredient"  + j + i;
-		label.appendChild(document.createTextNode(ingredients[i]));
+// 		var label = document.createElement('label')
+// 		label.htmlFor = "ingredient"  + j + i;
+// 		label.appendChild(document.createTextNode(ingredients[i]));
 
-		ingredients[i] = ingredients[i].replace(/\s/g, '_');
+// 		ingredients[i] = ingredients[i].replace(/\s/g, '_');
 
+// 		$.ajax({
+// 			url: "http://api.walmartlabs.com/v1/search?apiKey=jbwqfe65aws3axhy5qqxbx2r&query=" + ingredients[i]
+// 	,
+// 			method: "GET",
+// 			dataType: 'jsonp',
+// 			success: function(data) {
+
+// 				walmartResults = data;
+
+// 				if(data.totalResults != 0) {
+
+// 					var a = document.createElement('a');
+// 					var linkText = document.createTextNode(data.query);
+// 					a.appendChild(linkText);
+// 					a.title = "ingredient";
+// 					a.target = "_blank";
+// 					a.href = data.items[0].addToCartUrl;
+// 					document.body.appendChild(a);
+
+// 				}
+
+// 				else {
+// 					// do something about there not being any data left
+// 				}
+
+// 				BuildPanel(data);
+
+// 			}
+// 			});	 // end of ajax function
+
+// 		$("#list").append(checkbox);
+// 		$("#list").append(label);
+// 		$("#list").append("<br>");
+
+// 	}
+// }
+
+function HidePageItems() {
+	$("#howto").hide();
+	$(".jumbotron").hide();
+	$("#firstRow").empty();
+}
+
+function setInitial() {
+	$("#results").hide();
+}
+
+function CreateHeader(index) {
+	$("#ingredientList").append("<a href=" + recipeResults[index].href +"><h3>" + recipeResults[index].title + "</h3></a>");
+	$("a").attr("target", "_blank");
+}
+
+function CallWalmart(index) {
+
+	var ingredients = recipeResults[index].ingredients.split(',');
+	console.log(ingredients);
+
+	for (var index = 0; index < ingredients.length; index++) {
+
+		// Make an ajax call for each ingredient and add them to the table
 		$.ajax({
-			url: "http://api.walmartlabs.com/v1/search?apiKey=jbwqfe65aws3axhy5qqxbx2r&query=" + ingredients[i]
+			url: "http://api.walmartlabs.com/v1/search?apiKey=jbwqfe65aws3axhy5qqxbx2r&query=" + ingredients[index]
 	,
 			method: "GET",
 			dataType: 'jsonp',
@@ -233,51 +292,79 @@ function CreateChecklist(j) {
 					a.href = data.items[0].addToCartUrl;
 					document.body.appendChild(a);
 
+					AddTableRow(data.items[0]);
+
 				}
 
 				else {
 					// do something about there not being any data left
 				}
 
-				BuildPanel(data);
+				
 
 			}
 			});	 // end of ajax function
 
-		$("#list").append(checkbox);
-		$("#list").append(label);
-		$("#list").append("<br>");
-
 	}
+	
 }
 
-function HidePageItems() {
-	$("#howto").hide();
-	$(".jumbotron").hide();
-	$("#firstRow").empty();
+function AddTableRow (data) {
+
+
+	var ingredient = data.name;
+	var price = data.salePrice;
+	var cartURL = data.addToCartUrl;
+	var tableRowArray = [ingredient, price, cartURL];
+
+	// if the price is not available, state that is not available
+	if(!price) {
+		price = "Price info is not available.";
+	}
+
+	if(!cartURL) {
+		cartURL = "The item is not available.";
+	}
+
+
+	var row = $("<tr>");
+	
+	var data = $("<td>");
+	data.html(ingredient);
+	row.append(data);
+
+	var data = $("<td>");
+	data.html(price);
+	row.append(data);
+
+	var data = $("<td>");
+	
+	data.html(cartURL);
+	row.append(data);
+
+	$("#tableData").append(row);
+
 }
 
-function setInitial() {
-	$("#results").hide();
+// This builds the table structure for the ingredient results
+function BuildTable() {
+ 
+ 	var head = "<thead><tr><th>Ingredient</th><th>Price</th><th>Add to Walmart Grocery Cart?</th>";
+ 	var table = $("<table class='table'>");
+ 	var body = $("<tbody id= 'tableData'>");
+ 	
+ 	table.append(head);
+ 	table.append(body);
+	
+ 	$("#ingredientList").append(table);
+
 }
 
-function CreateHeader(i) {
-	$("#ingredientList").append("<a href=" + recipeResults[i].href +"><h3>" + recipeResults[i].title + "</h3></a>");
-	$("a").attr("target", "_blank");
-	console.log(recipeResults[i].title);
-}
+// This 
+function ReturnToResultsPage() {
 
-function BuildPanel(data) {
-// 	console.log(data);
 
-// 	<div class="container">
-//   <h2>Panel Heading</h2>
-//   <div class="panel panel-default">
-//     <div class="panel-heading">Panel Heading</div>
-//     <div class="panel-body">Panel Content</div>
-//   </div>
-// </div>
-	// Top of the table is 
+
 }
 
 // $("button").click(function(){
