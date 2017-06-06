@@ -16,7 +16,15 @@ var ingredient = "";
 var recipeType = "";
 var alpha = new RegExp(/^[A-Za-z,\s]+$/);  //pattern to ensure only valid words are entered
 
-var recipeResults = "";
+var recipeResults = {};
+var numResults = 6;
+var walmartResults = {};
+
+
+
+// This will set the click events for each of the results
+setClickItems(numResults);
+setInitial();
 
 // Initialize Firebase
   var config = {
@@ -45,12 +53,13 @@ var recipeResults = "";
 
 // 	});
 
-
-
-
-
 //get ingredients list from user input box 
 $("button").click(function(){
+	
+	$("#results").show();
+	HidePageItems();
+
+
 	ingredient = $("#ingredient-input").val().trim();
 	recipeType = $("#type-input").val().trim();
 	console.log("ingredients: " + ingredient);
@@ -58,8 +67,6 @@ $("button").click(function(){
 
 	//check that ingredient-input or type-input have some value before you build the queryRecipe url
 	if (ingredient.length>0 || recipeType.length>0) {
-
-		
 
 		if(ingredient.length>0 & recipeType.length>0) {
 			//both search windows have input
@@ -131,7 +138,7 @@ $("button").click(function(){
 
 				recipeResults = response.results;
 
-				for (var i = 0; i < 6; i++) {
+				for (var i = 0; i < numResults; i++) {
 
 				// Create the thumbnail html
 				var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail" id="thumb' + i +'"><img id="image"' + i + ' src=' +
@@ -163,25 +170,39 @@ $("button").click(function(){
 
 //********************* Click event for first result ******************************************//
 
+function setClickItems(number) {
+	
+	// Create a click even for each result
+	for (var i = 0; i < number; i++) {
+		
+		$(".row").delegate("#thumb" + i, "click", function() {
+			CreateChecklist(i);	
+			HidePageItems();
 
-$(".row").delegate("#thumb0", "click", function() {
+		})   // end of click events
+	} // end of for loop
+} // end of function
 
-	var j = 0;
+
+//******************** METHODS ****************************************************//
+
+function CreateChecklist(j) {
 	
 	// Create a list
-	var formHTML = '<form action="/action_page.php" method="get">	</form>';
+	var formHTML = '<form id="list" action="/action_page.php" method="get">	</form>';
 
   	$("#ingredientList").append(formHTML);
 	
-	var ingredients = recipeResults[0].ingredients.split(',');
+	var ingredients = recipeResults[j].ingredients.split(',');
 
 	for (var i = 0; i < ingredients.length; i++) {
-
 
 		var checkbox = document.createElement('input');
 		checkbox.type = "checkbox";
 		checkbox.name = "ingredient";
 		checkbox.value = "test";
+
+
 			
 		checkbox.id = "ingredient" + j + i;
 
@@ -189,10 +210,7 @@ $(".row").delegate("#thumb0", "click", function() {
 		label.htmlFor = "ingredient"  + j + i;
 		label.appendChild(document.createTextNode(ingredients[i]));
 
-
-		
 		ingredients[i] = ingredients[i].replace(/\s/g, '_');
-		
 
 		var request = $.ajax({
 			url: "http://api.walmartlabs.com/v1/search?apiKey=jbwqfe65aws3axhy5qqxbx2r&query=" + ingredients[i]
@@ -200,6 +218,8 @@ $(".row").delegate("#thumb0", "click", function() {
 			method: "GET",
 			dataType: 'jsonp',
 			success: function(data) {
+
+				walmartResults = data;
 
 				if(data.totalResults != 0) {
 
@@ -220,14 +240,22 @@ $(".row").delegate("#thumb0", "click", function() {
 			}
 			});	 // end of ajax function
 
-		$("form").append(checkbox);
-		$("form").append(label);
-		$("form").append("<br>");
+		$("#list").append(checkbox);
+		$("#list").append(label);
+		$("#list").append("<br>");
+
 
 	}
-})   // end of click event
+}
 
-//******************** WALMART AJAX CALL ****************************************************//
+function HidePageItems() {
+	$("#howto").hide();
+	$(".jumbotron").hide();
+}
+
+function setInitial() {
+	$("#results").hide();
+}
 
 
 
