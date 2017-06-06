@@ -268,7 +268,6 @@ function CreateHeader(index) {
 function CallWalmart(index) {
 
 	var ingredients = recipeResults[index].ingredients.split(',');
-	console.log(ingredients);
 
 	for (var index = 0; index < ingredients.length; index++) {
 
@@ -311,35 +310,53 @@ function CallWalmart(index) {
 
 function AddTableRow (data) {
 
-
 	var ingredient = data.name;
 	var price = data.salePrice;
 	var cartURL = data.addToCartUrl;
-	var tableRowArray = [ingredient, price, cartURL];
 
 	// if the price is not available, state that is not available
 	if(!price) {
 		price = "Price info is not available.";
 	}
 
-	if(!cartURL) {
-		cartURL = "The item is not available.";
-	}
 
 
 	var row = $("<tr>");
 	
+	// Write the ingredient name to the table
 	var data = $("<td>");
 	data.html(ingredient);
 	row.append(data);
 
+	// Write the price to the table
 	var data = $("<td>");
 	data.html(price);
 	row.append(data);
 
-	var data = $("<td>");
+	// Create a link for add to Cart
+	if(cartURL) {
+
+		var data = $("<td>");
+		var form = document.createElement("FORM");
+
+		form.setAttribute("action", "" + cartURL + "");
+		form.setAttribute("target", "_blank");
+		var i = document.createElement("input"); 
+		i.setAttribute('type',"submit");
+		i.setAttribute('value',"Add to Cart");
 	
-	data.html(cartURL);
+		form.appendChild(i);
+		data.append(form);
+
+	}
+
+	else {
+		var data = $("<td>");
+		data.html("Item not available");
+	}
+	
+	// var dataHTML = $("<td><form action='" + cartURL + " + ><input type='submit'" +
+	// "value='Go to Google' /></form></td>");
 	row.append(data);
 
 	$("#tableData").append(row);
