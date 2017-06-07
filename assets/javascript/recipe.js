@@ -36,23 +36,35 @@ setInitial();
     messagingSenderId: "701815658245"
   };
   firebase.initializeApp(config);
-  var database = firebase.database();
+ 
+ //********************* Get search data stored in Recipe2Go Firebase************************************// 
+  //store database structure into variables
+  var database = firebase.database().ref("Searches/");
+  var searchIngr = database.child("ingredients");
+  var searchType = database.child("recipeType");
 
-//initalize our database elements
-// 	var name = "";
-// 	var ingredients = "";
-// 	var prices = "";
-// 	var total = "";
+  //store the last 3 ingredient searches and recipe types
+  var lastIngr = searchIngr.limitToLast(3);
+  var lastType = searchType.limitToLast(3);
 
-// //set the db
-// 	database.ref().set({
-// 		name: name,
-// 		ingredients: ingredients,
-// 		prices: prices,
-// 		total: total
+  //get the data stored in the database for ingredients using our variable which limits the # of results returned
+  lastIngr.on("child_added", function(data){
+  	console.log(data.val().ingredient);
+	}, function(error) {
+  		console.log("Error: " + error.code);
+  });
 
-// 	});
+//get the data stored in the database for recipe types using our variable which limits the # of results returned
+  lastType.on("child_added", function(data){
+  	console.log(data.val().recipeType);
+  }, function(error) {
+  		console.log("Error: " + error.code);
 
+  });
+
+
+//*****************************************************************************************************// 
+  
 //get ingredients list from user input box 
 $("button").click(function(){
 	
@@ -77,10 +89,27 @@ $("button").click(function(){
 			console.log("type: " + goodType + ", Ingredient: " + goodIngr);
 
 			if (goodType & goodIngr) {
+				//add ingredients and recipe type to database
+				// database.push({
+				// 	ingredient: ingredient,
+				// 	recipeType: recipeType
+
+				// });
+				searchIngr.push({
+					ingredient:ingredient
+				});
+				searchType.push({
+					recipeType:recipeType
+
+				});
+
 
 			var queryRecipe = queryurl + "i=" + ingredient + "&q=" + recipeType +"&p=3";
 			console.log(queryRecipe);
 			recipeCall(queryRecipe);
+
+			
+
 			
 			}
 			else{
@@ -94,6 +123,11 @@ $("button").click(function(){
 			var goodIngr = alpha.test(ingredient);
 
 			if (goodIngr) {
+				//add ingredient to database
+				searchIngr.push({
+					ingredient:ingredient
+				});
+
 			var queryRecipe = queryurl + "i=" + ingredient +"&p=3";
 			recipeCall(queryRecipe);
 			}
@@ -108,6 +142,11 @@ $("button").click(function(){
 			var goodType = alpha.test(recipeType);
 
 			if (goodType) {
+
+				//add recipe type to database
+				searchType.push({
+					recipeType:recipeType
+				});
 			var queryRecipe = queryurl + "q=" + recipeType + "&p=3";
 			recipeCall(queryRecipe);
 			}
@@ -257,32 +296,15 @@ function setInitial() {
 	$("#results").hide();
 }
 
+function ingredientAdd(ingredient) {
+	console.log(ingredient);
+	database.ref().push({
+		ingredient: ingredient
+
+	});
+
+}
 
 
 
-// $("button").click(function(){
-// 	//$("#recipedata").load("http://www.bigoven.com/recipe/eggplant-omelet-with-coriander-and-caraway/143831 .ingredientbox");
-// 	// $.get(bigOvenURL, function(data){
-// 	// 	console.log(data);
-// 	$("#recipedata").load(bigOvenURL + " .ingredientbox");
-// 	$("#recipedata").load(recipeURL + "")
-// 	// });
-
-// 	$.ajax({
-// 		url: recipeURL,
-// 		method: "GET",
-// 		//dataType: "jsonp",
-// 		// jsonpCallback: "callback",
-// 		success: function(pageData) {
-// 			console.log(pageData);
-// 		}
-// 	});
-
-// });
-
-// //get html data from a specific url
-// 	var recipeURL = "http://allrecipes.com/recipe/68898/potato-and-cheese-frittata";
-
-// //scraping of bigoven recipe page
-// var bigOvenURL = "http://www.bigoven.com/recipe/eggplant-omelet-with-coriander-and-caraway/143831";
  });
