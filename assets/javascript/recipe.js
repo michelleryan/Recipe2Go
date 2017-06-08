@@ -62,8 +62,6 @@ $("button").click(function(){
 
 	ingredient = $("#ingredient-input").val().trim();
 	recipeType = $("#type-input").val().trim();
-	console.log("ingredients: " + ingredient);
-	console.log("recipe type: " + recipeType);
 
 	//check that ingredient-input or type-input have some value before you build the queryRecipe url
 	if (ingredient.length>0 || recipeType.length>0) {
@@ -224,6 +222,7 @@ function CallWalmart(index) {
 
 				else {
 					// do something about there not being any data left
+					console.log("There is no data from walmart.");
 				}
 			}
 			});	 // end of ajax function
@@ -234,9 +233,12 @@ function CallWalmart(index) {
 
 function AddTableRow (data) {
 
+	console.log(data);
+
 	var ingredient = data.name;
 	var price = data.salePrice;
 	var cartURL = data.addToCartUrl;
+	var available = data.availableOnline;
 
 	// if the price is not available, state that is not available
 	if(!price) {
@@ -258,10 +260,12 @@ function AddTableRow (data) {
 	row.append(data);
 
 	// Create a link for add to Cart
-	if(cartURL) {
+	if(available) {
 
 		var data = $("<td>");
 		var form = document.createElement("FORM");
+
+		console.log(cartURL);
 
 		form.setAttribute("action", "" + cartURL + "");
 		form.setAttribute("target", "_blank");
