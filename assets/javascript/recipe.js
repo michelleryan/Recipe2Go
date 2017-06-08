@@ -274,12 +274,12 @@ function CallWalmart(index) {
 
 function AddTableRow (data) {
 
-	console.log(data);
-
 	var ingredient = data.name;
 	var price = data.salePrice;
 	var cartURL = data.addToCartUrl;
 	var available = data.availableOnline;
+
+	console.log(ingredient, price, cartURL, available);
 
 	// if the price is not available, state that is not available
 	if(!price) {
@@ -299,21 +299,30 @@ function AddTableRow (data) {
 	row.append(data);
 
 	// Create a link for add to Cart
+	// onclick="location.href='http://google.com'
 	if(available) {
 
 		var data = $("<td>");
-		var form = document.createElement("FORM");
+		// var form = document.createElement("FORM");
 
-		console.log(cartURL);
+		// console.log(cartURL);
 
-		form.setAttribute("action", "" + cartURL + "");
-		form.setAttribute("target", "_blank");
-		var i = document.createElement("input"); 
-		i.setAttribute('type',"submit");
-		i.setAttribute('value',"Add to Cart");
+		// form.setAttribute("method", "link");
+		// form.setAttribute("action", cartURL);
+		// form.setAttribute("target", "_blank");
+		
+		var i = document.createElement("a"); 
+		i.innerHTML = "Add to Cart";
+		i.setAttribute('href', cartURL);
+		i.setAttribute('class',"btn btn-info");
+		i.setAttribute("target", "_blank");	
+		i.setAttribute('type',"button");
+
+
+
 	
-		form.appendChild(i);
-		data.append(form);
+		// form.appendChild(i);
+		data.append(i);
 
 	}
 
