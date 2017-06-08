@@ -180,7 +180,9 @@ $("button").click(function(){
 				for (var i = 0; i < numResults; i++) {
 
 				// Create the thumbnail html
-				var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail" id="thumb' + i +'"><img id="image"' + i + ' src=' +
+				//BELOW CHANGE #1`!!!!!============================================================
+
+				var html = '<div class="col-sm-6 col-md-4"><div class="thumbnail" id="thumb' + i +'"><img id="image" style="width:200px"' + i + ' src=assets/images/noimage.png' + '>';
 				response.results[i]["thumbnail"] + '>';
 
 				var caption = $("<div>");
@@ -225,9 +227,9 @@ function setClickItems(number) {
 //******************** METHODS ****************************************************//
 
 
-
+//BELOW CHANGE #2`!!!!!============================================================
 function HidePageItems() {
-	$("#howto").hide();
+	$(".bg-3").hide();
 	$(".jumbotron").hide();
 	$("#firstRow").empty();
 }
@@ -327,8 +329,8 @@ function AddTableRow (data) {
 // This builds the table structure for the ingredient results
 function BuildTable() {
  
- 	var head = "<thead><tr><th>Ingredient</th><th>Price</th><th>Add to Walmart Grocery Cart?</th>";
- 	var table = $("<table class='table'>");
+ 	var head = "<thead><tr class='info'><th>Ingredient</th><th>Price</th><th>Add to Walmart Grocery Cart?</th>";
+ 	var table = $("<table class='table table-hover'>");
  	var body = $("<tbody id= 'tableData'>");
  	
  	table.append(head);
