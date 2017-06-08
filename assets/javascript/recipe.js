@@ -217,6 +217,11 @@ $("button").click(function(){
 	
 });
 
+$("#reset").click(function(){
+	location.reload();
+	
+});
+
 //********************* Click event for first result ******************************************//
 
 function setClickItems(number) {
