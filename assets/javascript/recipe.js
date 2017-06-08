@@ -108,9 +108,6 @@ $("button").click(function(){
 			console.log(queryRecipe);
 			recipeCall(queryRecipe);
 
-			
-
-			
 			}
 			else{
 				console.log("invalid input");
@@ -166,12 +163,8 @@ $("button").click(function(){
 		
 	}
 	else{
-
-
 		$("#type-input").css("border", "2px solid red");
 		$("#ingredient-input").css("border", "2px solid red");
-
-		console.log("This is not working.");
 	}
 
 	//Determine if the user entered ingredients and a recipe type or just one of the search options
@@ -184,6 +177,8 @@ $("button").click(function(){
 			method: "GET",
 			dataType: 'jsonp',
 			success: function(response) {
+
+				if(response.results != 0 ) {
 
 				recipeResults = response.results;
 
@@ -208,9 +203,16 @@ $("button").click(function(){
 
 				}
 
+
+
 				}
+			
 
+			else {
+				location.reload();
+			}
 
+			}
 			});
 
 		}
