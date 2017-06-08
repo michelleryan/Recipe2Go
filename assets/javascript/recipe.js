@@ -167,9 +167,9 @@ $("button").click(function(){
 	}
 	else{
 
-		// Turn
 
-		$("#type-input").css("color", "black");
+		$("#type-input").css("border", "2px solid red");
+		$("#ingredient-input").css("border", "2px solid red");
 
 		console.log("This is not working.");
 	}
