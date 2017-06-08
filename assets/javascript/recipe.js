@@ -68,8 +68,7 @@ setInitial();
 //get ingredients list from user input box 
 $("button").click(function(){
 	
-	$("#results").show();
-	HidePageItems();
+
 
 
 	ingredient = $("#ingredient-input").val().trim();
@@ -80,6 +79,9 @@ $("button").click(function(){
 
 		if(ingredient.length>0 & recipeType.length>0) {
 			//both search windows have input
+
+			$("#results").show();
+			HidePageItems();
 
 			//validation of input, should be only characters and ingredients must be seperated by a ','
 			var goodType = alpha.test(recipeType);
@@ -117,6 +119,9 @@ $("button").click(function(){
 		}
 		if (ingredient.length>0 & recipeType.length==0) {
 
+			$("#results").show();
+			HidePageItems();
+
 			//only ingredient search has input
 			var goodIngr = alpha.test(ingredient);
 
@@ -135,6 +140,9 @@ $("button").click(function(){
 			
 		}
 		if (recipeType.length>0 & ingredient.length==0) {
+
+			$("#results").show();
+			HidePageItems();
 			
 			//only recipe type search has input
 			var goodType = alpha.test(recipeType);
@@ -159,7 +167,11 @@ $("button").click(function(){
 	}
 	else{
 
-		alert("You must enter some ingredients or a recipe type you want to search for!");
+		// Turn
+
+		$("#type-input").css("color", "black");
+
+		console.log("This is not working.");
 	}
 
 	//Determine if the user entered ingredients and a recipe type or just one of the search options
@@ -303,13 +315,6 @@ function AddTableRow (data) {
 	if(available) {
 
 		var data = $("<td>");
-		// var form = document.createElement("FORM");
-
-		// console.log(cartURL);
-
-		// form.setAttribute("method", "link");
-		// form.setAttribute("action", cartURL);
-		// form.setAttribute("target", "_blank");
 		
 		var i = document.createElement("a"); 
 		i.innerHTML = "Add to Cart";
@@ -317,9 +322,6 @@ function AddTableRow (data) {
 		i.setAttribute('class',"btn btn-info");
 		i.setAttribute("target", "_blank");	
 		i.setAttribute('type',"button");
-
-
-
 	
 		// form.appendChild(i);
 		data.append(i);
