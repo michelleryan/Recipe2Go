@@ -49,14 +49,16 @@ setInitial();
 
   //get the data stored in the database for ingredients using our variable which limits the # of results returned
   lastIngr.on("child_added", function(data){
-  	console.log(data.val().ingredient);
+  	var listItem1 = data.val().ingredient;
+  	$('.ingList').append("<li>"+listItem1+"</li>");
 	}, function(error) {
   		console.log("Error: " + error.code);
   });
 
 //get the data stored in the database for recipe types using our variable which limits the # of results returned
   lastType.on("child_added", function(data){
-  	console.log(data.val().recipeType);
+  	var listItem2 = (data.val().recipeType);
+   	$('.typeList').append("<li>"+listItem2+"</li>");
   }, function(error) {
   		console.log("Error: " + error.code);
 
@@ -68,20 +70,20 @@ setInitial();
 //get ingredients list from user input box 
 $("button").click(function(){
 	
-	$("#results").show();
-	HidePageItems();
+
 
 
 	ingredient = $("#ingredient-input").val().trim();
 	recipeType = $("#type-input").val().trim();
-	console.log("ingredients: " + ingredient);
-	console.log("recipe type: " + recipeType);
 
 	//check that ingredient-input or type-input have some value before you build the queryRecipe url
 	if (ingredient.length>0 || recipeType.length>0) {
 
 		if(ingredient.length>0 & recipeType.length>0) {
 			//both search windows have input
+			$(".recipe").show();
+			$("#results").show();
+			HidePageItems();
 
 			//validation of input, should be only characters and ingredients must be seperated by a ','
 			var goodType = alpha.test(recipeType);
@@ -107,10 +109,6 @@ $("button").click(function(){
 			var queryRecipe = queryurl + "i=" + ingredient + "&q=" + recipeType +"&p=3";
 			console.log(queryRecipe);
 			recipeCall(queryRecipe);
-
-			
-
-			
 			}
 			else{
 				console.log("invalid input");
@@ -118,6 +116,10 @@ $("button").click(function(){
 
 		}
 		if (ingredient.length>0 & recipeType.length==0) {
+			$(".recipe").show();
+			$("#results").show();
+
+			HidePageItems();
 
 			//only ingredient search has input
 			var goodIngr = alpha.test(ingredient);
@@ -137,6 +139,10 @@ $("button").click(function(){
 			
 		}
 		if (recipeType.length>0 & ingredient.length==0) {
+			$(".recipe").show();
+			$("#results").show();
+
+			HidePageItems();
 			
 			//only recipe type search has input
 			var goodType = alpha.test(recipeType);
@@ -160,8 +166,8 @@ $("button").click(function(){
 		
 	}
 	else{
-
-		alert("You must enter some ingredients or a recipe type you want to search for!");
+		$("#type-input").css("border", "2px solid red");
+		$("#ingredient-input").css("border", "2px solid red");
 	}
 
 	//Determine if the user entered ingredients and a recipe type or just one of the search options
@@ -174,6 +180,8 @@ $("button").click(function(){
 			method: "GET",
 			dataType: 'jsonp',
 			success: function(response) {
+
+				if(response.results != 0 ) {
 
 				recipeResults = response.results;
 
@@ -198,12 +206,24 @@ $("button").click(function(){
 
 				}
 
+
+
 				}
+			
 
+			else {
+				location.reload();
+			}
 
+			}
 			});
 
 		}
+	
+});
+
+$("#reset").click(function(){
+	location.reload();
 	
 });
 
@@ -229,12 +249,14 @@ function setClickItems(number) {
 
 //BELOW CHANGE #2`!!!!!============================================================
 function HidePageItems() {
-	$(".bg-3").hide();
+	$(".bg-2").hide();
 	$(".jumbotron").hide();
+	$(".bg-4").hide();
 	$("#firstRow").empty();
 }
 
 function setInitial() {
+	$(".recipe").hide();
 	$("#results").hide();
 }
 
@@ -265,6 +287,7 @@ function CallWalmart(index) {
 
 				else {
 					// do something about there not being any data left
+					console.log("There is no data from walmart.");
 				}
 			}
 			});	 // end of ajax function
@@ -278,6 +301,9 @@ function AddTableRow (data) {
 	var ingredient = data.name;
 	var price = data.salePrice;
 	var cartURL = data.addToCartUrl;
+	var available = data.availableOnline;
+
+	console.log(ingredient, price, cartURL, available);
 
 	// if the price is not available, state that is not available
 	if(!price) {
@@ -297,19 +323,20 @@ function AddTableRow (data) {
 	row.append(data);
 
 	// Create a link for add to Cart
-	if(cartURL) {
+	// onclick="location.href='http://google.com'
+	if(available) {
 
 		var data = $("<td>");
-		var form = document.createElement("FORM");
-
-		form.setAttribute("action", "" + cartURL + "");
-		form.setAttribute("target", "_blank");
-		var i = document.createElement("input"); 
-		i.setAttribute('type',"submit");
-		i.setAttribute('value',"Add to Cart");
+		
+		var i = document.createElement("a"); 
+		i.innerHTML = "Add to Cart";
+		i.setAttribute('href', cartURL);
+		i.setAttribute('class',"btn btn-info");
+		i.setAttribute("target", "_blank");	
+		i.setAttribute('type',"button");
 	
-		form.appendChild(i);
-		data.append(form);
+		// form.appendChild(i);
+		data.append(i);
 
 	}
 

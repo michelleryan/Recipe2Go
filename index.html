@@ -2,107 +2,118 @@
 <html lang="en-us">
 
 <head>
-
-  <meta charset="UTF-8">
-  <title>Recipe2Go</title>
-
-  <!-- We link our html to the Bootstrap CDN -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> 
-
-  <link href="https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps:700|Lora:700i" rel="stylesheet">
-
-
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css"> <!-- local css sheet --> 
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"> <!-- animate.css -->
-
-  <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
- <!-- scroll reveal checker -->
-
- 
-  <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
-
+    <meta charset="UTF-8">
+    <title>Recipe2Go</title>
+    <!-- We link our html to the Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps:700|Lora:700i|Ubuntu|Montserrat" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- local css sheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <!-- animate.css -->
+    <script src="https://unpkg.com/scrollreveal/dist/scrollreveal.min.js"></script>
+    <!-- scroll reveal checker -->
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
 </head>
 
 <body>
-
     <!-- Jumbotron element -->
     <div class="jumbotron">
-<br><br>
-
-      <!-- centered text -->
-      <h1 class="text-center"><strong>Recipe2Go</strong></h1>
-      <h2 class="text-center">- turn your favorite recipes into a grocery list in a sec -</h2>
-<br><br>
-      <div class="row">
-        <div class="col-lg-3"> </div>
-
-        <div class="col-lg-6">
-
-        <form class="form-inline">
-      <div class="input-group">
-        <input type="text" class="form-control" id="ingredient-input" placeholder="Ingredients, ex:onion,garlic..">
+        <br>
+        <br>
+        <!-- centered text -->
+        <h1 class="text-center"><strong>Recipe2Go</strong></h1>
+        <h2 class="text-center">- turn your favorite recipes into a grocery list in a sec -</h2>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-lg-3"> </div>
+            <div class="col-lg-6">
+                <form class="form-inline">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="ingredient-input" placeholder="Ingredients, ex:onion,garlic..">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="type-input" placeholder="Type of food, ex: salad, omelet">
+                    </div>
+                    <div class="input-group">
+                        <button type="button" class="btn btn-primary" id="go"><b>Go!</b></button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3"> </div>
         </div>
-      <div class="input-group">
-        <input type="text" class="form-control" id="type-input" placeholder="Type of food, ex: salad, omelet">
-      </div>
-      <div class="input-group">
-          <button type="button" class="btn btn-primary"><b>Go!</b></button>
+    </div>
+    <!-- ================================== -->
+    <!-- Second Container/ how to -->
+    <div class="container-fluid bg-2 text-center">
+        <h3 class="margin howTo">How to Recipe2Go?</h3>
+        <br>
+        <div class="row">
+            <div class="col-sm-4 steps">
+                <img src="assets/images/image4.png" class="img-responsive margin" style="width:400px" alt="Icol-sm-4col-sm-4mage">
+                <p class="img-responsive">Step 1: Use the search bar to find a recipe of any cusine! Simply type in any keywords or ingredients. </p>
+            </div>
+            <div class="col-sm-4 steps">
+                <img src="assets/images/image5.png" class="img-responsive margin" style="width:400px" alt="Image">
+                <p class="img-responsive">Step 2: Select desired recipe from the results. This will bring you to a separate page with all of the listed ingredients!</p>
+            </div>
+            <div class="col-sm-4 steps">
+                <img src="assets/images/image6.png" class="img-responsive margin" style="width:400px" alt="Image">
+                <p class="img-responsive">Step 3: Import the list of ingredients to Walmart shopping cart as you like. Here, you are all ready to go and ready to make some delicious meals!</p>
+            </div>
         </div>
-        </form>
+    </div>
+
+    <!-- fourth Container/ recent search -->
+    <div class="container-fluid bg-4 text-center recentData">
+        <h3 class="margin mostRecent1">Most Recent Searches</h3>
+            <div class="col-sm-6 mostRecent2">
+                <h4><b>Ingredients</b></h4>
+                <br>
+                <ul class="ingList">
+
+                </ul>
+            </div>
+            <div class="col-sm-6 mostRecent2">
+                <h4><b>Type of Food</b></h4>
+                <br>
+                <ul class="typeList">
+
+                </ul>
+            </div>
+    </div>
+
+    <!-- third Container/ search result -->
+    <div class="recipe">
+        <br>
+        <br>
+        <br>
+        <br>
+        <h3 class="margin text">&nbsp; &nbsp; &nbsp; Recipe Results</h3>
+    </div>
+    <div id="results" class="container-fluid bg-3 text-center">
+        <br>
+        <div class="row animated zoomInLeft" id="firstRow">
         </div>
-              <div class="col-lg-3"> </div>
+        <div class="row animated zoomInLeft" id="ingredientList">
         </div>
-      </div>
-
-      <!-- ================================== -->
-
-<!-- Second Container -->
-<div class="container-fluid bg-3 text-center">    
-  <h3 class="margin howTo">How to Recipe2Go?</h3><br>
-  <div class="row">
-    <div class="col-sm-4 steps">
-      <img src="assets/images/image4.png" class="img-responsive margin" style="width:400px" alt="Icol-sm-4col-sm-4mage">
-      <p class="img-responsive">Step 1: Use the search bar to find a recipe of any cusine! Simply type in any keywords or ingredients. </p>
+        <br>
+        <button type="button" id="reset" class="btn btn-primary"><b>New Search</b></button>
+        <br>
+        <br>
+        <br>
+        <div class="dash"></div>
     </div>
-    <div class="col-sm-4 steps"> 
-      <img src="assets/images/image5.png" class="img-responsive margin" style="width:400px" alt="Image">
-      <p class="img-responsive">Step 2: Select desired recipe from the results. Add or take out any unwanted ingredients to make the recipe just the way you like!</p>
-    </div>
-    <div class="col-sm-4 steps"> 
-      <img src="assets/images/image6.png" class="img-responsive margin" style="width:400px" alt="Image">
-      <p class="img-responsive">Step 3: Import the list of ingredients of the modified recipe to a grocery list. Here, you are all ready to go! We can even add those to the shopping cart for you from Walmart!</p>
-    </div>
-  </div>
-</div>
-
-<!-- Third Container -->
-<div id = "results" class="container-fluid bg-2 text-center">
-  <h3 class="margin recipe">Recipe Results</h3>
-      <div class="row" id ="firstRow">
-
-    </div>
-     <div class="row" id="ingredientList">
-
-
-    </div>
-</div>
-
-
-
 
 <!-- Footer -->
-<footer class="bg-4 text-center">
-  <p>Project 1| LeeAnna Misterek | Michelle Ryan | Sherry Bao | 2017 Coding Boot Camp </p> 
-</footer>
-
+    <footer class="bg-5 text-center">
+        <p>Project 1| LeeAnna Misterek | Michelle Ryan | Sherry Bao | 2017 Coding Boot Camp </p>
+    </footer>
 </body>
-
 <script src="assets/javascript/recipe.js"></script>
 <script src="assets/javascript/app.js"></script>
-
-
 
 </html>
