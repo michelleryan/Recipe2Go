@@ -145,9 +145,8 @@ thead{
   border-top: 1px dashed #fff;
 }
 
-/*=======================recent searches===============================*/
-.panel-heading {
-  background-color: #20315A;
-  color: white;
-  text-align: left;
+/*=======================recent changes===============================*/
+p li{
+  font-family: 'Montserrat', cursive !important;
+
 }

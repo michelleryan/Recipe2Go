@@ -47,16 +47,21 @@ setInitial();
   var lastIngr = searchIngr.limitToLast(3);
   var lastType = searchType.limitToLast(3);
 
+
   //get the data stored in the database for ingredients using our variable which limits the # of results returned
   lastIngr.on("child_added", function(data){
-  	console.log(data.val().ingredient);
+  	var listItem1 = data.val().ingredient;
+  	$('.ingList').append("<li>"+listItem1+"</li>");
+
 	}, function(error) {
   		console.log("Error: " + error.code);
   });
 
 //get the data stored in the database for recipe types using our variable which limits the # of results returned
   lastType.on("child_added", function(data){
-  	console.log(data.val().recipeType);
+  	var listItem2 = (data.val().recipeType);
+   	$('.typeList').append("<li>"+listItem2+"</li>");
+
   }, function(error) {
   		console.log("Error: " + error.code);
 
@@ -117,6 +122,7 @@ $("button").click(function(){
 		if (ingredient.length>0 & recipeType.length==0) {
 			$(".recipe").show();
 			$("#results").show();
+
 			HidePageItems();
 
 			//only ingredient search has input
@@ -139,6 +145,7 @@ $("button").click(function(){
 		if (recipeType.length>0 & ingredient.length==0) {
 			$(".recipe").show();
 			$("#results").show();
+
 			HidePageItems();
 			
 			//only recipe type search has input
@@ -248,6 +255,7 @@ function setClickItems(number) {
 function HidePageItems() {
 	$(".bg-2").hide();
 	$(".jumbotron").hide();
+	$(".bg-4").hide();
 	$("#firstRow").empty();
 }
 

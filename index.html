@@ -6,7 +6,7 @@
     <title>Recipe2Go</title>
     <!-- We link our html to the Bootstrap CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps:700|Lora:700i|Ubuntu" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps:700|Lora:700i|Ubuntu|Montserrat" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- local css sheet -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
@@ -62,17 +62,38 @@
             </div>
             <div class="col-sm-4 steps">
                 <img src="assets/images/image6.png" class="img-responsive margin" style="width:400px" alt="Image">
-                <p class="img-responsive">Step 3: Import the list of ingredients to Walmart shopping cart as you like. Here, you are all ready to go to make some delicious meals!</p>
+                <p class="img-responsive">Step 3: Import the list of ingredients to Walmart shopping cart as you like. Here, you are all ready to go and ready to make some delicious meals!</p>
             </div>
         </div>
     </div>
-    <!-- Third Container/search result -->
+
+    <!-- fourth Container/ recent search -->
+    <div class="container-fluid bg-4 text-center recentData">
+        <h3 class="margin mostRecent1">Most Recent Searches</h3>
+            <div class="col-sm-6 mostRecent2">
+                <h4><b>Ingredients</b></h4>
+                <br>
+                <ul class="ingList">
+
+                </ul>
+            </div>
+            <div class="col-sm-6 mostRecent2">
+                <h4><b>Type of Food</b></h4>
+                <br>
+                <ul class="typeList">
+
+                </ul>
+            </div>
+    </div>
+
+    <!-- third Container/ search result -->
     <div class="recipe">
         <br>
         <br>
         <br>
         <br>
-        <h3 class="margin text">&nbsp; &nbsp; &nbsp; Recipe Results</h3></div>
+        <h3 class="margin text">&nbsp; &nbsp; &nbsp; Recipe Results</h3>
+    </div>
     <div id="results" class="container-fluid bg-3 text-center">
         <br>
         <div class="row animated zoomInLeft" id="firstRow">
@@ -86,25 +107,6 @@
         <br>
         <div class="dash"></div>
     </div>
-    <!-- Fourth Container/recent searches -- >
-<!-- <div id = "recent" class="container-fluid bg-4 text-center">
-    <div class="row">
-      <div id="recentSearches">
-        <div class="panel-heading">
-            <h3 class="panel-title"><strong>Most Recent Searches</strong></h3>
-         </div>
-        <table class="u-full-width">
-          <thead>
-            <tr>
-              <th>Ingredients</th>
-              <th>Type of Food</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-</div> -->
 
 <!-- Footer -->
     <footer class="bg-5 text-center">
