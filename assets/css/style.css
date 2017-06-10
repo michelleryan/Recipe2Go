@@ -150,3 +150,10 @@ p li{
   font-family: 'Montserrat', cursive !important;
 
 }
+
+#tableData tbody tr:hover td
+{
+  color: #339;
+  background: #d0dafd;
+}
+

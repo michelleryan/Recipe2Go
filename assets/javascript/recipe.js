@@ -121,6 +121,9 @@ $("button").click(function(){
 
 			HidePageItems();
 
+			$("#results").show();
+			HidePageItems();
+
 			//only ingredient search has input
 			var goodIngr = alpha.test(ingredient);
 
